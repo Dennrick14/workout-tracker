@@ -63,6 +63,11 @@ html,body{width:100%;max-width:100%;overflow-x:hidden}
  #calendar .day .rest-day-label{font-size:6px;letter-spacing:0;overflow-wrap:anywhere}
  #calendar .dow{min-width:0;font-size:8px;padding:5px 0}
 }
+
+/* Preserve protein goal colors when a calendar date is selected */
+.day.selected.protein-hit{background:#29452e;border-color:var(--lime)}
+.day.selected.protein-mid{background:#554626;border-color:var(--lime)}
+.day.selected.protein-low{background:#542c2c;border-color:var(--lime)}
 </style></head>
 <body><div class="shell">
 <header class="top"><div class="brand"><div class="brandmark">D</div><div class="brandname">DENN PASARAP JOURNEY <small>ROAD TO MAG THIRST TRAP</small></div></div><div style="display:flex;align-items:center;gap:12px"><span id="syncStatus" class="mono" data-state="muted">Checking sync…</span><div class="today" id="todayLabel"></div></div></header>
