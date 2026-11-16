@@ -54,8 +54,16 @@ plan:[
 {day:6,name:'Sunday',items:[]}
 ]
 };
-let state;try{state=JSON.parse(localStorage.getItem('formTracker'))||{...defaults,logs:{},checks:{},weekPlans:{}}}catch(e){state={...defaults,logs:{},checks:{},weekPlans:{}}}
-state={...defaults,...state,templates:state.templates||[],activities:state.activities||[],plan:state.plan||defaults.plan,logs:state.logs||{},checks:state.checks||{},weekPlans:state.weekPlans||{},restDays:state.restDays||{}};
+const CLEAN_START_VERSION=1;
+let state;
+try{
+ const saved=JSON.parse(localStorage.getItem('formTracker'));
+ state=saved&&saved.cleanStartVersion===CLEAN_START_VERSION?saved:{...defaults,logs:{},checks:{},weekPlans:{},restDays:{},cleanStartVersion:CLEAN_START_VERSION};
+}catch(e){
+ state={...defaults,logs:{},checks:{},weekPlans:{},restDays:{},cleanStartVersion:CLEAN_START_VERSION};
+}
+state={...defaults,...state,templates:state.templates||[],activities:state.activities||[],plan:state.plan||defaults.plan,logs:state.logs||{},checks:state.checks||{},weekPlans:state.weekPlans||{},restDays:state.restDays||{},cleanStartVersion:CLEAN_START_VERSION};
+localStorage.setItem('formTracker',JSON.stringify(state));
 function save(){localStorage.setItem('formTracker',JSON.stringify(state));renderAll()}
 function logFor(date){return state.logs[date]||(state.logs[date]={foods:{},manual:[],activities:[]})}
 function dayPlan(date){const monday=addDays(date,-((parse(date).getDay()+6)%7));return state.weekPlans[monday]||state.plan}
