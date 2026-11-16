@@ -36,7 +36,7 @@
 <script>
 var $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const TRACKER_API='https://eactdefwappvtaqsgadp.supabase.co/functions/v1/tracker-sync';
-const TRACKER_KEY=new URLSearchParams(location.hash.slice(1)).get('key')||'';
+const TRACKER_KEY='6773bcde45b801a88ce10b556840ccb856c0493313f2fa7e49386a946235d6d4';
 let remoteReady=false, syncBusy=false, syncPending=false;
 function syncStatus(message,kind='muted'){let el=$('#syncStatus');if(el){el.textContent=message;el.dataset.state=kind}}
 async function remoteRequest(method,body){const response=await fetch(TRACKER_API,{method,headers:{'Content-Type':'application/json','x-tracker-key':TRACKER_KEY},...(body?{body:JSON.stringify(body)}:{})});if(!response.ok)throw new Error('Sync request failed ('+response.status+')');return response.json()}
