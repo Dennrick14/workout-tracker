@@ -70,7 +70,8 @@ function save(){localStorage.setItem('formTracker',JSON.stringify(state));render
 function logFor(date){return state.logs[date]||(state.logs[date]={foods:{},manual:[],activities:[]})}
 function dayPlan(date){const monday=addDays(date,-((parse(date).getDay()+6)%7));if(!state.weekPlans[monday])state.weekPlans[monday]=JSON.parse(JSON.stringify(defaults.plan));return state.weekPlans[monday]}
 function keyFor(date,idx){return date+'_'+idx}
-function quantityMultiplier(value){let match=String(value??'1').trim().match(/^(\\d+(?:\\.\\d+)?)/);return match?Math.max(0,Number(match[1])):1}\nfunction total(date){let l=logFor(date),n=l.manual.reduce((a,x)=>a+Number(x.protein||0),0);state.templates.forEach(g=>g.foods.forEach(f=>{if(l.foods[f.id])n+=Number(f.protein||0)*quantityMultiplier(l.quantities?.[f.id]??1)}));return Math.round(n*10)/10}
+function quantityMultiplier(value){let match=String(value??'1').trim().match(/^(\d+(?:\.\d+)?)/);return match?Math.max(0,Number(match[1])):1}
+function total(date){let l=logFor(date),n=l.manual.reduce((a,x)=>a+Number(x.protein||0),0);state.templates.forEach(g=>g.foods.forEach(f=>{if(l.foods[f.id])n+=Number(f.protein||0)*quantityMultiplier(l.quantities?.[f.id]??1)}));return Math.round(n*10)/10}
 function pct(n){return Math.min(100,Math.round(n/Math.max(1,state.goal)*100))}
 function proteinClass(n){if(n<=0)return "";let p=n/Math.max(1,state.goal)*100;return p>=100?"protein-hit":p>=70?"protein-mid":"protein-low"}
 function workoutStatus(date){if(state.restDays&&state.restDays[date])return "rest";let weekday=(parse(date).getDay()+6)%7,plan=dayPlan(date).find(x=>x.day===weekday),items=plan?.items||[];if(!items.length&&!(plan?.targets||[]).length)return "";if(!items.length)return "low";let done=items.filter((x,i)=>!!state.checks[keyFor(date,weekday+"_"+i)]).length;return done===0?"low":done===items.length?"done":"partial"}
