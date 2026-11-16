@@ -83,7 +83,7 @@ $('#weekDayTabs').innerHTML=plan.map(day=>'<button class="week-day-tab '+(day.da
 $$('[data-weekday]').forEach(b=>b.onclick=()=>{activeWorkoutDay=Number(b.dataset.weekday);renderWeek()});
 let day=plan.find(x=>x.day===activeWorkoutDay),date=addDays(weekStart,day.day),isRest=!!(state.restDays&&state.restDays[date]);
 let displayTitle=day.title||autoDayTitle(day.targets)||'Choose workout focus';
-html='<div class="dayblock"><div class="daytitle"><div><strong>'+esc(displayTitle)+'</strong><div class="mono">'+day.name+' · '+fmt(date,{month:'short',day:'numeric'})+'</div></div><div style="display:flex;gap:7px;align-items:center"><button class="tiny" data-edit-targets="'+day.day+'">Edit</button><button class="tiny" data-add-day="'+day.day+'" '+(isRest?'disabled':'')+'>+ Exercise</button></div></div>';
+html='<div class="dayblock"><div class="daytitle"><div><strong>'+esc(displayTitle)+'</strong><div class="mono">'+day.name+' · '+fmt(date,{month:'short',day:'numeric'})+'</div></div><div style="display:flex;gap:7px;align-items:center"><button class="tiny" data-edit-targets="'+day.day+'">Edit</button></div></div>';
 if(isRest){html+='<div style="padding:18px 16px;color:var(--orange);font-size:13px;font-weight:700">Rest day. Take it easy and recover. 🌿</div>'}
 else {
 if(!day.items.length)html+='<div style="padding:14px 16px;color:var(--muted);font-size:12px">Nothing planned yet. Add an exercise whenever you’re ready.</div>';
@@ -92,7 +92,7 @@ day.items.forEach((ex,i)=>{let done=!!state.checks[keyFor(date,day.day+'_'+i)];h
 $('#weekPlan').innerHTML=html;
 $$('[data-edit-targets]').forEach(b=>b.onclick=()=>targetModal(Number(b.dataset.editTargets)));
 $$('[data-check]').forEach(ch=>ch.onchange=()=>{state.checks[keyFor(ch.dataset.date,ch.dataset.check)]=ch.checked;save()});
-$$('[data-add-day]').forEach(b=>b.onclick=()=>exerciseModal(Number(b.dataset.addDay)));
+
 $$('[data-edit]').forEach(b=>b.onclick=()=>{let [d,i]=b.dataset.edit.split('_').map(Number);exerciseModal(d,i)});
 $$('[data-delete]').forEach(b=>b.onclick=()=>{let [d,i]=b.dataset.delete.split('_').map(Number);if(confirm('Remove this exercise from the plan?')){dayPlan(weekStart).find(x=>x.day===d).items.splice(i,1);save()}});
 }
