@@ -79,8 +79,7 @@ html,body{width:100%;max-width:100%;overflow-x:hidden}
 .login-side{display:grid;gap:16px}.login-photo{min-height:190px;border:1px dashed #60735d;border-radius:22px;background:linear-gradient(145deg,#243629,#18231c);display:grid;place-items:center;text-align:center;padding:22px;color:#b6c7b1}.login-photo strong{display:block;color:#c8f169;font-size:13px;letter-spacing:1px;margin-bottom:7px}.login-card{background:#18221c;border:1px solid #3a4b3c;border-radius:25px;padding:34px;box-shadow:0 24px 80px #0008}.login-brand{text-align:center;margin-bottom:28px}.login-brand .brandmark{margin:0 auto 16px;width:54px;height:54px;font-size:27px}.login-brand h1{font-size:19px;letter-spacing:2px;margin:0}.login-brand p{font:10px 'DM Mono';letter-spacing:2px;color:#c8f169;margin:8px 0}.login-card label{display:block;color:#aab8aa;font-size:12px;margin:16px 0 7px}.login-card input{width:100%;padding:13px 14px;border:1px solid #405344;background:#101713;color:#f1f5ee;border-radius:12px;outline:none}.login-card input:focus{border-color:#c8f169}.login-submit{width:100%;border:0;border-radius:12px;background:#c8f169;color:#152015;font-weight:800;padding:14px;margin-top:22px}.login-error{min-height:18px;color:#f17d78;font-size:12px;margin-top:12px;text-align:center}.login-hidden{display:none!important}
 @media(max-width:760px){.login-layout{grid-template-columns:1fr;max-width:430px}.login-side{grid-template-columns:1fr 1fr}.login-photo{min-height:95px;font-size:11px}.login-card{padding:26px}.login-screen{padding:18px}}
 
-#fitnessMeme{position:fixed;right:22px;bottom:18px;width:clamp(105px,13vw,175px);height:auto;max-height:25vh;object-fit:contain;z-index:40;border-radius:10px;box-shadow:0 8px 28px #0008;opacity:.96;pointer-events:none}
-@media(max-width:600px){#fitnessMeme{right:10px;bottom:10px;width:92px;max-height:18vh}}
+.login-photo.meme-photo{padding:8px;overflow:hidden}.login-photo.meme-photo #fitnessMeme{display:block;width:100%;height:100%;max-height:190px;object-fit:contain;border:0;border-radius:13px;box-shadow:none;opacity:1}.login-photo.meme-photo #fitnessMeme[hidden]{display:none}
 </style></head>
 <body>
 <div id="loginScreen" class="login-screen">
@@ -92,10 +91,9 @@ html,body{width:100%;max-width:100%;overflow-x:hidden}
       <label for="loginPassword">Password</label><input id="loginPassword" type="password" autocomplete="current-password" placeholder="Enter password" required>
       <button class="login-submit" type="submit">LOG IN</button><div id="loginError" class="login-error" role="alert"></div>
     </form>
-    <div class="login-side"><div class="login-photo"><div><strong>FUTURE PHOTO</strong>Keep showing up.</div></div><div class="login-photo"><div><strong>MEME SPACE</strong>Trust the process.</div></div></div>
+    <div class="login-side"><div class="login-photo"><div><strong>FUTURE PHOTO</strong>Keep showing up.</div></div><div class="login-photo meme-photo"><img id="fitnessMeme" alt="Fitness is my passion meme" hidden /></div></div>
   </div>
 </div>
-<img id="fitnessMeme" alt="Fitness is my passion meme" hidden />
 <div class="shell login-hidden">
 <header class="top"><div class="brand"><div class="brandmark">D</div><div class="brandname">DENN PASARAP JOURNEY <small>ROAD TO MAG THIRST TRAP</small></div></div><div style="display:flex;align-items:center;gap:12px"><span id="syncStatus" class="mono" data-state="muted">Checking sync…</span><button id="logoutButton" class="ghost" style="font-size:11px;padding:7px 10px" type="button">Log out</button><div class="today" id="todayLabel"></div></div></header>
 <div class="hero"><div><div class="eyebrow">MY FITNESS JOURNEY</div><h1>Always try to be better every day.</h1><p>Little steps at a time. Progress may be slow, but it’s still progress. Keep going, you got this. Mwahh! 💚</p></div></div>
