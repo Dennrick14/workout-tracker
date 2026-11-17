@@ -93,7 +93,7 @@ html,body{width:100%;max-width:100%;overflow-x:hidden}
   </div>
 </div>
 <div class="shell login-hidden">
-<header class="top"><div class="brand"><div class="brandmark">D</div><div class="brandname">DENN PASARAP JOURNEY <small>ROAD TO MAG THIRST TRAP</small></div></div><div style="display:flex;align-items:center;gap:12px"><span id="syncStatus" class="mono" data-state="muted">Checking sync…</span><div class="today" id="todayLabel"></div></div></header>
+<header class="top"><div class="brand"><div class="brandmark">D</div><div class="brandname">DENN PASARAP JOURNEY <small>ROAD TO MAG THIRST TRAP</small></div></div><div style="display:flex;align-items:center;gap:12px"><span id="syncStatus" class="mono" data-state="muted">Checking sync…</span><button id="logoutButton" class="ghost" style="font-size:11px;padding:7px 10px" type="button">Log out</button><div class="today" id="todayLabel"></div></div></header>
 <div class="hero"><div><div class="eyebrow">MY FITNESS JOURNEY</div><h1>Always try to be better every day.</h1><p>Little steps at a time. Progress may be slow, but it’s still progress. Keep going, you got this. Mwahh! 💚</p></div></div>
 <nav class="tabs"><button class="tab active" data-tab="summary">My Progress</button><button class="tab" data-tab="workout">Workout</button><button class="tab" data-tab="protein">Protein</button></nav>
 <main>
@@ -123,6 +123,7 @@ const supabaseClient=window.supabase.createClient('https://eactdefwappvtaqsgadp.
 let authSession=null,remoteReady=false,syncBusy=false,syncPending=false,syncTimer=null;
 function showLogin(message=''){document.getElementById('loginScreen').classList.remove('login-hidden');document.querySelector('.shell').classList.add('login-hidden');document.getElementById('loginError').textContent=message}
 function showTracker(){document.getElementById('loginScreen').classList.add('login-hidden');document.querySelector('.shell').classList.remove('login-hidden')}
+document.getElementById('logoutButton').addEventListener('click',async()=>{await supabaseClient.auth.signOut();authSession=null;remoteReady=false;showLogin()});
 document.getElementById('loginForm').addEventListener('submit',async e=>{e.preventDefault();const button=e.currentTarget.querySelector('button');button.disabled=true;button.textContent='LOGGING IN…';document.getElementById('loginError').textContent='';try{const username=document.getElementById('loginUsername').value.trim().toLowerCase();if(username!=='denn')throw new Error('Incorrect username or password.');const {data,error}=await supabaseClient.auth.signInWithPassword({email:AUTH_EMAIL,password:document.getElementById('loginPassword').value});if(error)throw error;authSession=data.session;showTracker();await initializeRemote()}catch(err){showLogin('Incorrect username or password.');}finally{button.disabled=false;button.textContent='LOG IN'}});
 
 function syncStatus(message,kind='muted'){let el=$('#syncStatus');if(el){el.textContent=message;el.dataset.state=kind}}
