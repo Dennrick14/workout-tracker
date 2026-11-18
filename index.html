@@ -168,6 +168,7 @@ plan:[
 ]
 };
 const CLEAN_START_VERSION=2;
+const TAB_META=[{id:'workout',label:'Workout'},{id:'protein',label:'Protein'},{id:'calorie',label:'Calories'},{id:'bmi',label:'BMI'}];
 function ensureTabSettings(){state.tabSettings=state.tabSettings||{};state.tabSettings.visible={workout:true,protein:true,calorie:false,bmi:false,...(state.tabSettings.visible||{})};state.calorieGoal=Number(state.calorieGoal)||0;state.bmiSettings=state.bmiSettings||{heightCm:'',interval:'weekly'};state.weightLogs=state.weightLogs||{}}
 function tabVisible(id){ensureTabSettings();return !!state.tabSettings.visible[id]}
 function foodCalories(date){let l=logFor(date),n=0;state.templates.filter(g=>!l.hiddenGroups?.[g.id]).forEach(g=>g.foods.forEach(f=>{if(!l.hiddenFoods?.[f.id]&&l.foods?.[f.id])n+=Number(l.foodOverrides?.[f.id]?.calories??f.calories??0)}));Object.values(l.addedFoods||{}).flat().forEach(f=>{if(l.foods?.[f.id])n+=Number(f.calories||0)});return Math.round(n)}
